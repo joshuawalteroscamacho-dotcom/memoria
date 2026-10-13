@@ -143,11 +143,24 @@ function ImagePlaceholder({
   label,
   className = "",
   number,
+  src,
 }: {
   label: string;
   className?: string;
   number?: string;
+  src?: string;
 }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  if (src && !imageFailed) {
+    return (
+      <div className={`image-placeholder image-placeholder-loaded ${className}`} role="img" aria-label={label}>
+        <img src={src} alt={label} loading="lazy" onError={() => setImageFailed(true)} />
+        {number && <span className="placeholder-number">{number}</span>}
+      </div>
+    );
+  }
+
   return (
     <div className={`image-placeholder ${className}`} role="img" aria-label={`Placeholder: ${label}`}>
       {number && <span className="placeholder-number">{number}</span>}
@@ -195,7 +208,6 @@ function ArrowLink({ href, children, light = false }: { href: string; children: 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [formSent, setFormSent] = useState(false);
-  const [playingInterview, setPlayingInterview] = useState<number | null>(null);
   const [activeInterview, setActiveInterview] = useState(0);
   const [activeAframeObject, setActiveAframeObject] = useState(0);
   const [portalContent, setPortalContent] = useState<PortalContent | null>(null);
@@ -203,42 +215,53 @@ function App() {
 
   const interviews = [
     {
-      topic: "[Tema de la entrevista 1]",
-      quote: "“[Fragmento significativo de la primera entrevista que invite a escuchar la historia completa.]”",
-      person: "[Nombre o seudónimo 1]",
-      meta: "[Relación con la comunidad] · [Año]",
-      duration: "[Duración 1]",
-      image: "Retrato de la persona entrevistada 1",
+      topic: "Cátedra de la Paz",
+      quote: "El Guateque: especial Cátedra de la Paz",
+      person: "Javeriana Estéreo 91.9 FM",
+      meta: "Programa El Guateque · 12 de octubre de 2025",
+      duration: "Audio en SoundCloud",
+      image: "Imagen del especial Cátedra de la Paz",
+      audioUrl:
+        "https://soundcloud.com/javeriana919fm/el-guateque-12-de-octubre-de-2025-especial-catedra-de-la-paz",
+      sourceUrl:
+        "https://soundcloud.com/javeriana919fm/el-guateque-12-de-octubre-de-2025-especial-catedra-de-la-paz",
     },
     {
-      topic: "[Tema de la entrevista 2]",
-      quote: "“[Fragmento significativo de la segunda entrevista sobre el colegio, el barrio o la comunidad.]”",
-      person: "[Nombre o seudónimo 2]",
-      meta: "[Relación con la comunidad] · [Año]",
-      duration: "[Duración 2]",
-      image: "Retrato de la persona entrevistada 2",
+      topic: "Restauradores de la Memoria Histórica",
+      quote: "El Guateque: proyectos Restauradores de la Memoria Histórica en escuelas",
+      person: "Javeriana Estéreo 91.9 FM",
+      meta: "Programa El Guateque · 23 de noviembre de 2025",
+      duration: "Audio en SoundCloud",
+      image: "Imagen del programa sobre Restauradores de la Memoria",
+      audioUrl:
+        "https://soundcloud.com/javeriana919fm/el-guateque-23-de-noviembre-de-2025-proyectos-restauradores-de-la-memoria-historica-en-escuelas",
+      sourceUrl:
+        "https://soundcloud.com/javeriana919fm/el-guateque-23-de-noviembre-de-2025-proyectos-restauradores-de-la-memoria-historica-en-escuelas",
     },
     {
-      topic: "[Tema de la entrevista 3]",
-      quote: "“[Fragmento significativo de la tercera entrevista que conserve una experiencia importante.]”",
-      person: "[Nombre o seudónimo 3]",
-      meta: "[Relación con la comunidad] · [Año]",
-      duration: "[Duración 3]",
-      image: "Retrato de la persona entrevistada 3",
+      topic: "Museo Escolar",
+      quote: "El Guateque: conversación sobre el museo",
+      person: "Javeriana Estéreo 91.9 FM",
+      meta: "Programa El Guateque · 22 de marzo de 2026",
+      duration: "Audio en SoundCloud",
+      image: "Imagen del programa sobre el Museo Escolar",
+      audioUrl: "https://soundcloud.com/javeriana919fm/22-de-marzo-de-2026-museo",
+      sourceUrl: "https://soundcloud.com/javeriana919fm/22-de-marzo-de-2026-museo",
     },
     {
-      topic: "[Tema de la entrevista 4]",
-      quote: "“[Fragmento significativo de la cuarta entrevista para cerrar este recorrido de voces.]”",
-      person: "[Nombre o seudónimo 4]",
-      meta: "[Relación con la comunidad] · [Año]",
-      duration: "[Duración 4]",
-      image: "Retrato de la persona entrevistada 4",
+      topic: "Archivo sonoro",
+      quote: "Consulta más conversaciones y memorias en el archivo de El Guateque",
+      person: "Javeriana Estéreo 91.9 FM",
+      meta: "Archivo El Guateque · 2025",
+      duration: "Colección externa",
+      image: "Imagen del archivo El Guateque 2025",
+      audioUrl: "",
+      sourceUrl: "https://javerianaestereo.com/el-guateque/2025",
     },
   ];
 
   const changeInterview = (direction: number) => {
     setActiveInterview((current) => (current + direction + interviews.length) % interviews.length);
-    setPlayingInterview(null);
   };
 
   const aframeObjects = [
@@ -682,19 +705,29 @@ function App() {
                 <p className="interview-type">Entrevista {activeInterview + 1} de {interviews.length} · {interviews[activeInterview].topic}</p>
                 <h3>{interviews[activeInterview].quote}</h3>
                 <p><strong>{interviews[activeInterview].person}</strong> · {interviews[activeInterview].meta}</p>
-                <div className="audio-player">
-                  <button
-                    type="button"
-                    aria-label={playingInterview === activeInterview ? `Pausar entrevista ${activeInterview + 1}` : `Reproducir entrevista ${activeInterview + 1}`}
-                    onClick={() => setPlayingInterview(playingInterview === activeInterview ? null : activeInterview)}
-                  >
-                    <Icon name={playingInterview === activeInterview ? "pause" : "play"} />
-                  </button>
-                  <div className={`audio-track ${playingInterview === activeInterview ? "audio-track-active" : ""}`}>
-                    {Array.from({ length: 34 }, (_, index) => <i key={index} />)}
+                {interviews[activeInterview].audioUrl ? (
+                  <div className="soundcloud-embed">
+                    <iframe
+                      title={`Audio de la entrevista ${activeInterview + 1}`}
+                      width="100%"
+                      height="120"
+                      scrolling="no"
+                      frameBorder="no"
+                      allow="autoplay"
+                      loading="lazy"
+                      src={`https://w.soundcloud.com/player/?url=${encodeURIComponent(interviews[activeInterview].audioUrl)}&color=%23df604b&auto_play=false&hide_related=true&show_comments=false&show_user=true&show_reposts=false&show_teaser=false&visual=false`}
+                    />
+                    <a href={interviews[activeInterview].sourceUrl} target="_blank" rel="noreferrer">
+                      Abrir audio en SoundCloud <Icon name="arrow" size={15} />
+                    </a>
                   </div>
-                  <span>00:00 / {interviews[activeInterview].duration}</span>
-                </div>
+                ) : (
+                  <a className="interview-source-card" href={interviews[activeInterview].sourceUrl} target="_blank" rel="noreferrer">
+                    <span><Icon name="mic" /></span>
+                    <div><small>ARCHIVO DE REFERENCIA</small><strong>Consultar El Guateque 2025 en Javeriana Estéreo</strong></div>
+                    <Icon name="arrow" />
+                  </a>
+                )}
                 <details>
                   <summary>Leer transcripción accesible</summary>
                   <p>[Inserta aquí la transcripción completa de la entrevista {activeInterview + 1}. Puedes dividirla por intervenciones e incluir marcas de tiempo.]</p>
@@ -715,12 +748,11 @@ function App() {
                 <button
                   className={activeInterview === index ? "carousel-dot-active" : ""}
                   type="button"
-                  key={interview.person}
+                  key={interview.sourceUrl}
                   aria-label={`Mostrar entrevista ${index + 1}`}
                   aria-current={activeInterview === index ? "true" : undefined}
                   onClick={() => {
                     setActiveInterview(index);
-                    setPlayingInterview(null);
                   }}
                 >
                   <span>0{index + 1}</span>
@@ -840,11 +872,28 @@ function App() {
                 </blockquote>
                 <div className="awards">
                   {[
-                    ["[Año]", "[Nombre del reconocimiento]", "[Entidad que lo otorga]"],
-                    ["[Año]", "[Mención o participación destacada]", "[Entidad que lo otorga]"],
-                  ].map(([year, title, entity]) => (
+                    [
+                      "2025",
+                      "[Reconocimiento publicado por la Secretaría de Educación de Bogotá]",
+                      "Educación Bogotá",
+                      "https://x.com/Educacionbogota/status/1902046716477477112",
+                    ],
+                    [
+                      "2025",
+                      "[Reconocimiento publicado por Bogotá]",
+                      "Bogotá",
+                      "https://x.com/Bogota/status/1894407697602080927",
+                    ],
+                  ].map(([year, title, entity, url]) => (
                     <div className="award-row" key={title}>
-                      <span>{year}</span><div><strong>{title}</strong><small>{entity}</small></div>
+                      <span>{year}</span>
+                      <div>
+                        <strong>{title}</strong>
+                        <small>{entity}</small>
+                        <a href={url} target="_blank" rel="noreferrer">
+                          Ver publicación en X <Icon name="arrow" size={14} />
+                        </a>
+                      </div>
                     </div>
                   ))}
                 </div>
