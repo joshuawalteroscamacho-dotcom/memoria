@@ -370,6 +370,16 @@ function App() {
       </a>
 
       <header className="site-header">
+        <div className="institution-bar">
+          <div>
+            <img src="/images/institucional/logo-etitc.webp" alt="Escudo de la Escuela Tecnológica Instituto Técnico Central" />
+            <span>
+              <b>Escuela Tecnológica Instituto Técnico Central</b>
+              Institución de formación del equipo RECO
+            </span>
+          </div>
+          <p>Establecimiento Público de Educación Superior · Bogotá D. C.</p>
+        </div>
         <div className="header-inner">
           <Brand />
           <nav className="desktop-nav" aria-label="Navegación principal">
@@ -415,7 +425,7 @@ function App() {
             <div className="hero-copy">
               <div className="hero-kicker">
                 <span className="pulse-dot" />
-                Proyecto escolar vivo · Bogotá
+                Desarrollado por equipo RECO · ETITC
               </div>
               <h1>
                 Recordar es una forma de <em>volver a encontrarnos.</em>
@@ -978,11 +988,58 @@ function App() {
           </div>
         </section>
 
+        <section className="institution section" id="institucion">
+          <div className="container institution-grid">
+            <div className="institution-visual">
+              <ImagePlaceholder
+                className="institution-campus"
+                label="Sede histórica de la Escuela Tecnológica Instituto Técnico Central"
+                src="/images/institucional/sede-itc.webp"
+              />
+              <ImagePlaceholder
+                className="institution-students"
+                label="Estudiantes del Instituto Técnico Central en una experiencia tecnológica"
+                src="/images/institucional/estudiantes-itc.webp"
+              />
+              <div className="institution-year">
+                <span>ETITC</span>
+                <small>Formación<br />técnica y humana</small>
+              </div>
+            </div>
+
+            <div className="institution-copy">
+              <Eyebrow>10 · Identidad institucional</Eyebrow>
+              <div className="institution-logo">
+                <img src="/images/institucional/logo-etitc.webp" alt="Logo de la Escuela Tecnológica Instituto Técnico Central" />
+                <span>
+                  <strong>Escuela Tecnológica</strong>
+                  Instituto Técnico Central
+                </span>
+              </div>
+              <h2>La formación técnica también construye memoria.</h2>
+              <p>
+                Este portal es una propuesta desarrollada por el <strong>equipo RECO</strong>, conformado por estudiantes
+                de la Escuela Tecnológica Instituto Técnico Central, como parte de su proceso de formación en sistemas,
+                diseño digital y desarrollo web.
+              </p>
+              <p>
+                Nuestra labor consiste en transformar los contenidos del proyecto <strong>Restauradores de la Memoria
+                del Colegio Tom Adams IED</strong> en una experiencia digital accesible, interactiva e inmersiva.
+              </p>
+              <div className="institution-relationship">
+                <div><span>01</span><strong>Institución formadora</strong><p>Escuela Tecnológica Instituto Técnico Central</p></div>
+                <div><span>02</span><strong>Equipo desarrollador</strong><p>RECO · Restauradores de Experiencias, Comunidades y Orígenes</p></div>
+                <div><span>03</span><strong>Proyecto de memoria</strong><p>Restauradores de la Memoria · Colegio Tom Adams IED</p></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section className="team section" id="equipo">
           <div className="container">
             <div className="team-heading">
               <SectionHeading
-                eyebrow="10 · Equipo RECO"
+                eyebrow="11 · Equipo RECO"
                 title="El equipo detrás de la experiencia."
                 intro="RECO reúne gestión, diseño, creación multimedia y desarrollo web para convertir la memoria en una experiencia viva."
               />
@@ -1071,7 +1128,7 @@ function App() {
         <section className="contact section" id="contacto">
           <div className="container contact-grid">
             <div className="contact-copy">
-              <Eyebrow light>11 · Contacto</Eyebrow>
+              <Eyebrow light>12 · Contacto</Eyebrow>
               <h2>Sigamos construyendo memoria.</h2>
               <p>
                 ¿Quieres visitar el museo, compartir una historia o conocer más del proyecto? Escríbenos.
@@ -1132,10 +1189,15 @@ function App() {
       <footer>
         <div className="footer-inner">
           <Brand />
-          <p>Un proyecto del Colegio Tom Adams IED<br />Bogotá, Colombia · [Año]</p>
+          <p>
+            Proyecto de memoria · Colegio Tom Adams IED<br />
+            Desarrollo web · Equipo RECO, ETITC<br />
+            Bogotá, Colombia · [Año]
+          </p>
           <div className="footer-links">
             <a href="#proyecto">Proyecto</a>
             <a href="#museo">Museo virtual</a>
+            <a href="#institucion">Identidad ETITC</a>
             <a href="#galeria">Galería</a>
             <a href="#equipo">Créditos</a>
             <a href="#inicio">Volver arriba ↑</a>
