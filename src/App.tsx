@@ -799,18 +799,45 @@ function App() {
             <div className="commemorations-title">
               <Eyebrow>05 · Fechas conmemorativas</Eyebrow>
               <h2>Recordar<br />nos reúne.</h2>
-              <p>[Explica por qué estas fechas son importantes para el proyecto y la comunidad.]</p>
+              <p>Acciones artísticas y pedagógicas que permiten reconocer el cuerpo, la paz y la memoria como territorios de encuentro.</p>
             </div>
             <div className="dates-list">
               {[
-                ["09", "ABR", "[Día Nacional de la Memoria]", "[Actividad o conmemoración realizada en el colegio]"],
-                ["30", "AGO", "[Conmemoración destacada]", "[Actividad o conmemoración realizada en el colegio]"],
-                ["10", "DIC", "[Día de los Derechos Humanos]", "[Actividad o conmemoración realizada en el colegio]"],
-              ].map(([day, month, title, copy]) => (
-                <article className="date-row" key={day + month}>
-                  <div className="date"><strong>{day}</strong><span>{month}</span></div>
-                  <div><h3>{title}</h3><p>{copy}</p></div>
-                  <span className="date-arrow"><Icon name="arrow" /></span>
+                {
+                  title: "Día de las Manos Rojas",
+                  image: "/images/fechas/dia-manos-rojas.png",
+                  imageLabel: "Registro de las actividades del Día de las Manos Rojas",
+                  dates: [["28", "ABR"], ["31", "AGO"]],
+                  copy: "Jornadas de sensibilización, creación colectiva y reflexión alrededor de la paz y las experiencias de la comunidad.",
+                },
+                {
+                  title: "Memorias Corporales",
+                  image: "/images/fechas/memorias-corporales.png",
+                  imageLabel: "Registro de las actividades de Memorias Corporales",
+                  dates: [["09", "ABR"], ["25", "MAY"]],
+                  copy: "Acciones performativas para explorar el cuerpo como archivo vivo, territorio de memoria y forma de expresión.",
+                },
+              ].map((commemoration) => (
+                <article className="commemorative-card" key={commemoration.title}>
+                  <ImagePlaceholder
+                    className="commemorative-image"
+                    label={commemoration.imageLabel}
+                    src={commemoration.image}
+                  />
+                  <div className="commemorative-copy">
+                    <div className="commemorative-dates">
+                      {commemoration.dates.map(([day, month]) => (
+                        <span key={`${day}-${month}`}>
+                          <strong>{day}</strong>
+                          <small>{month}</small>
+                        </span>
+                      ))}
+                    </div>
+                    <div>
+                      <h3>{commemoration.title}</h3>
+                      <p>{commemoration.copy}</p>
+                    </div>
+                  </div>
                 </article>
               ))}
             </div>
