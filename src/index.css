@@ -1911,7 +1911,71 @@ a {
 }
 
 .dates-list {
-  border-top: 1px solid rgba(23, 32, 54, 0.2);
+  display: grid;
+  gap: 24px;
+}
+
+.commemorative-card {
+  background: var(--paper);
+  border: 1px solid rgba(23, 32, 54, 0.14);
+  overflow: hidden;
+}
+
+.commemorative-image {
+  aspect-ratio: 1.85 / 1;
+  min-height: 0;
+}
+
+.commemorative-copy {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 125px 1fr;
+  padding: 22px 24px 25px;
+}
+
+.commemorative-dates {
+  display: flex;
+  gap: 8px;
+}
+
+.commemorative-dates > span {
+  align-items: center;
+  background: var(--coral);
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  height: 56px;
+  justify-content: center;
+  min-width: 56px;
+}
+
+.commemorative-dates strong {
+  font-family: var(--display);
+  font-size: 23px;
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.commemorative-dates small {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+}
+
+.commemorative-copy h3 {
+  font-family: var(--display);
+  font-size: 25px;
+  font-weight: 500;
+  margin: 0 0 6px;
+}
+
+.commemorative-copy p {
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.55;
+  margin: 0;
 }
 
 .date-row {
@@ -3511,6 +3575,11 @@ footer .brand-mark::after {
   .date-row {
     gap: 15px;
     grid-template-columns: 58px 1fr;
+  }
+
+  .commemorative-copy {
+    align-items: start;
+    grid-template-columns: 1fr;
   }
 
   .date-arrow {
