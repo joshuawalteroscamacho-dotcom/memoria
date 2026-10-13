@@ -1,10 +1,26 @@
 import { defineConfig, type HtmlTagDescriptor, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'node:fs'
 import path from 'node:path'
 
-import siteConfiguration from './.figma/make/site.json'
+const defaultSiteConfiguration: FigmaSiteConfiguration = {
+  title: 'Restauradores de la Memoria',
+  description:
+    'Portal web del proyecto Restauradores de la Memoria del Colegio Tom Adams IED y su Museo Escolar de la Memoria.',
+  language: 'es',
+  robots: { index: true },
+  icons: { icon: '/favicon.svg' },
+}
 
+const siteConfigurationPath = path.resolve(__dirname, '.figma/make/site.json')
+const localSiteConfiguration = fs.existsSync(siteConfigurationPath)
+  ? (JSON.parse(fs.readFileSync(siteConfigurationPath, 'utf8')) as FigmaSiteConfiguration)
+  : {}
+const siteConfiguration: FigmaSiteConfiguration = {
+  ...defaultSiteConfiguration,
+  ...localSiteConfiguration,
+}
 
 // Vite config — https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
